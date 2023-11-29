@@ -1,22 +1,18 @@
-import { useState } from "react";
-import { Header} from "./components/Header"
-import { Dashboard } from "./components/Dashboard";
+import { useState } from 'react'
+import { Header } from './components/Header'
+import { Dashboard } from './components/Dashboard'
 
-import { GlobalStyle } from "./styles/global";
-import { NewTransactionModal } from "./components/NewTransactionModal";
+import { GlobalStyle } from './styles/global'
+import { NewTransactionModal } from './components/NewTransactionModal'
 
+function App () {
+  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false)
 
-
-
-function App() {
-
-  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
-
-  function handleOpenNewTransactionModal() {
-      setIsNewTransactionModalOpen(true)
+  function handleOpenNewTransactionModal () {
+    setIsNewTransactionModalOpen(true)
   }
-  function handleCloseNewTransactionModal() {
-      setIsNewTransactionModalOpen(false)
+  function handleCloseNewTransactionModal () {
+    setIsNewTransactionModalOpen(false)
   }
   return (
 
@@ -27,12 +23,10 @@ function App() {
         isOpen={isNewTransactionModalOpen}
         onRequestClose={handleCloseNewTransactionModal}
       />
-    
-
 
       <GlobalStyle/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
