@@ -1,13 +1,24 @@
-import { useEffect, useState } from "react"
-import { Container } from "./styles"
-import {api} from "../../services/api"
+import { useEffect, useState } from 'react'
+import { Container } from './styles'
+import { api } from '../../services/api'
+
+interface Transaction {
+  id: number
+  title: string
+  amount: number
+  type: string
+  category: string
+  createdAt: string
+}
 
 export function TransactionsTable () {
-    useEffect(() => {
-        api.get('transactions')
-       .then(response => console.log(response.data))
-    })
-    return (
+  const [transactions, setTransactions] = useState<Transaction[]>([])
+
+  useEffect(() => {
+    api.get('transactions')
+      .then(response => { setTransactions(response.data.transactions) })
+  })
+  return (
         <Container>
             <table>
                 <thead>
@@ -20,20 +31,18 @@ export function TransactionsTable () {
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td className="title">Desenvolvimento de website</td>
-                        <td className="deposit">R$12.000</td>
-                        <td>Desenvolvimento</td>
-                        <td>20/02/2021</td>
+                  {transactions.map(transaction => {
+                    return (
+                        <tr key={transaction.id}>
+                        <td className="title">{transaction.title}</td>
+                        <td className={transaction.type}>{transaction.amount}</td>
+                        <td>{transaction.category}</td>
+                        <td>{transaction.createdAt}</td>
                     </tr>
-                    <tr>
-                        <td className="title">Desenvolvimento de website</td>
-                        <td className="withdraw">-R$1.200</td>
-                        <td>Desenvolvimento</td>
-                        <td>20/02/2021</td>
-                    </tr>
+                    )
+                  })}
                 </tbody>
             </table>
         </Container>
-    )
+  )
 }
