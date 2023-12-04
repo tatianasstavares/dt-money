@@ -5,19 +5,20 @@ import { api } from '../../services/api'
 interface Transaction {
   id: number
   title: string
-  amount: number
   type: string
   category: string
+  amount: number
   createdAt: string
 }
 
-export function TransactionsTable () {
+export function TransactionsTable (): JSX.Element {
   const [transactions, setTransactions] = useState<Transaction[]>([])
 
   useEffect(() => {
     api.get('transactions')
-      .then(response => { setTransactions(response.data.transactions) })
+      .then(response => { setTransactions(response.data.transactions) }).catch(err => err)
   })
+
   return (
         <Container>
             <table>
@@ -32,12 +33,21 @@ export function TransactionsTable () {
 
                 <tbody>
                   {transactions.map(transaction => {
+                    const { id, title, amount, category, createdAt, type } = transaction
+                    const transactioDate = new Date(createdAt)
                     return (
-                        <tr key={transaction.id}>
-                        <td className="title">{transaction.title}</td>
-                        <td className={transaction.type}>{transaction.amount}</td>
-                        <td>{transaction.category}</td>
-                        <td>{transaction.createdAt}</td>
+                        <tr key={id}>
+                        <td className="title">{title}</td>
+                        <td className={type}>
+                          { new Intl.NumberFormat('pt-BR', {
+                            style: 'currency',
+                            currency: 'BRL'
+                          }).format(amount)}
+                        </td>
+                        <td>{category}</td>
+                        <td>
+                        { new Intl.DateTimeFormat('pt-BR').format(transactioDate)}
+                        </td>
                     </tr>
                     )
                   })}
