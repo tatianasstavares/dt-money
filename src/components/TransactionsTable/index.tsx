@@ -1,23 +1,13 @@
-import { useEffect, useState } from 'react'
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useContext } from 'react'
 import { Container } from './styles'
-import { api } from '../../services/api'
-
-interface Transaction {
-  id: number
-  title: string
-  type: string
-  category: string
-  amount: number
-  createdAt: string
-}
+import { TransactionsContext } from '../../TransactionsContext'
 
 export function TransactionsTable (): JSX.Element {
-  const [transactions, setTransactions] = useState<Transaction[]>([])
+  const transactions = useContext(TransactionsContext)
 
-  useEffect(() => {
-    api.get('transactions')
-      .then(response => { setTransactions(response.data.transactions) }).catch(err => err)
-  })
+  console.log(transactions)
 
   return (
         <Container>

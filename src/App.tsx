@@ -4,28 +4,30 @@ import { Dashboard } from './components/Dashboard'
 
 import { GlobalStyle } from './styles/global'
 import { NewTransactionModal } from './components/NewTransactionModal'
+import { TransactionProvider } from './TransactionsContext'
 
-function App () {
+function App (): JSX.Element {
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false)
 
-  function handleOpenNewTransactionModal () {
+  function handleOpenNewTransactionModal (): void {
     setIsNewTransactionModalOpen(true)
   }
-  function handleCloseNewTransactionModal () {
+  function handleCloseNewTransactionModal (): void {
     setIsNewTransactionModalOpen(false)
   }
   return (
+    <TransactionProvider>
+        <Header onOpenNewTransactionModal={handleOpenNewTransactionModal}/>
 
-    <div className="App" >
-      <Header onOpenNewTransactionModal={handleOpenNewTransactionModal}/>
-      <Dashboard/>
-      <NewTransactionModal
-        isOpen={isNewTransactionModalOpen}
-        onRequestClose={handleCloseNewTransactionModal}
-      />
+        <Dashboard/>
+
+        <NewTransactionModal
+          isOpen={isNewTransactionModalOpen}
+          onRequestClose={handleCloseNewTransactionModal}
+        />
 
       <GlobalStyle/>
-    </div>
+      </TransactionProvider>
   )
 }
 

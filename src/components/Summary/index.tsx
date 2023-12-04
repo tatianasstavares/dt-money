@@ -1,11 +1,15 @@
-import { Container } from "./styles";
-import incomeImg from "../../assets/incoming.svg"
-import outcomeImg from "../../assets/outcomes.svg"
-import totalImg from "../../assets/total.svg"
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Container } from './styles'
+import incomeImg from '../../assets/incoming.svg'
+import outcomeImg from '../../assets/outcomes.svg'
+import totalImg from '../../assets/total.svg'
+import { useContext } from 'react'
+import { TransactionsContext } from '../../TransactionsContext'
 
+export function Summary (): JSX.Element {
+  const data = useContext(TransactionsContext)
 
-export function Summary () {
-    return (
+  return (
        <Container>
         <div>
             <header>
@@ -20,7 +24,7 @@ export function Summary () {
                 <img src={outcomeImg} alt="Saídas" />
             </header>
             <strong>- R$500</strong>
-        </div> 
+        </div>
         <div className="highlightBackground">
             <header>
                 <p>Total</p>
@@ -29,5 +33,5 @@ export function Summary () {
             <strong>R$500</strong>
         </div>
        </Container>
-    )
+  )
 }
