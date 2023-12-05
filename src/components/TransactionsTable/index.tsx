@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useContext } from 'react'
 import { Container } from './styles'
 import { TransactionsContext } from '../../TransactionsContext'
 
 export function TransactionsTable (): JSX.Element {
-  const transactions = useContext(TransactionsContext)
+  const { transactions } = useContext(TransactionsContext)
 
   console.log(transactions)
 
